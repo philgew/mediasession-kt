@@ -29,6 +29,7 @@ static std::function<void(void*)> onPrevoius = [](void* data) {};
 static std::function<void(long long, void*)> onSeek = [](long long pos, void*) {};
 
 static std::function<void(double, void*)> onRateChanged = [](double rate, void* data) {};
+static std::function<void(double, void*)> onVolumeChanged = [](double volume, void* data) {};
 static std::function<void(bool, void*)> onShuffleChanged = [](bool shuffle, void* data) {};
 static std::function<void(unsigned int, void*)> onLoopChanged = [](unsigned int loop, void* data) {};
 
@@ -42,6 +43,7 @@ static long long seekEnd = 0;
 winrt::event_token button_revoker;
 winrt::event_token repeat_revoker;
 winrt::event_token rate_revoker;
+winrt::event_token volume_revoker;
 winrt::event_token shuffle_revoker;
 winrt::event_token position_revoker;
 
@@ -167,6 +169,11 @@ SMTC_API void setOnRateChanged(void(*onrate)(double, void*))
 	onRateChanged = onrate;
 }
 
+SMTC_API void setOnVolumeChanged(void(*onvolume)(double, void*))
+{
+    onVolumeChanged = onvolume;
+}
+
 SMTC_API void setOnShuffleChanged(void(*onshuffle)(bool, void*))
 {
 	onShuffleChanged = onshuffle;
@@ -253,6 +260,17 @@ SMTC_API double getRate()
 SMTC_API void setRate(double rate)
 {
 	smtc.PlaybackRate(rate);
+}
+
+SMTC_API double getVolume()
+{
+    return 1.0; // todo: wait for smtc to add volume I guess? Add SoundLevel (Full, Low, Muted) stuff?
+}
+
+SMTC_API void setVolume(double volume)
+{
+    // todo: wait for smtc to add volume I guess? Add SoundLevel (Full, Low, Muted) stuff?
+    // smtc.Volume(volume);
 }
 
 SMTC_API bool getShuffle()

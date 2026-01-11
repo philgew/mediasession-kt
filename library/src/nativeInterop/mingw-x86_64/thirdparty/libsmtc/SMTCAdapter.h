@@ -21,6 +21,7 @@ extern "C"{
 	SMTC_API void setOnPrevious(void (*)(void*));
 
 	SMTC_API void setOnRateChanged(void (*)(double, void*));
+	SMTC_API void setOnVolumeChanged(void (*)(double, void*));
 	SMTC_API void setOnShuffleChanged(void (*)(bool, void*));
 	SMTC_API void setOnLoopChanged(void (*)(unsigned int, void*));
 
@@ -49,6 +50,9 @@ extern "C"{
 
 	SMTC_API double getRate();
 	SMTC_API void setRate(double);
+
+	SMTC_API double getVolume();
+	SMTC_API void setVolume(double);
 
 	SMTC_API bool getShuffle();
 	SMTC_API void setShuffle(bool);

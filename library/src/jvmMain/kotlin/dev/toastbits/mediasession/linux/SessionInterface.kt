@@ -45,6 +45,9 @@ internal class SessionInterface(
             "Rate" -> {
                 session.onSetRate?.invoke((value as Double).toFloat())
             }
+            "Volume" -> {
+                session.onSetVolume?.invoke((value as Double).toFloat())
+            }
         }
 
         val property: MprisProperty =

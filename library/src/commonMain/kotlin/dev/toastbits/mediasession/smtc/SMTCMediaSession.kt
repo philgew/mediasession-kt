@@ -99,7 +99,11 @@ open class SMTCMediaSession(private val smtc: SMTCAdapter): MediaSessionProperti
             field = value
             smtc.onSetShuffle = value
         }
-    
+    override var onSetVolume: ((volume: Float) -> Unit)? = null
+        set(value) {
+            field = value
+            smtc.onSetVolume = value
+        }
     override var onPlayPause: (() -> Unit)? = null
     override var onSeek: ((by_ms: Long) -> Unit)? = null
     override var onOpenUri: ((uri: String) -> Unit)? = null
@@ -181,7 +185,8 @@ open class SMTCMediaSession(private val smtc: SMTCAdapter): MediaSessionProperti
         update()
     }
     override fun setVolume(volume: Float) {
-        // TODO
+        smtc.setVolume(volume.toDouble())
+        update()
     }
     override fun setRate(rate: Float) {
         smtc.setRate(rate.toDouble())

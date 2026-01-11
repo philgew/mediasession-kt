@@ -17,6 +17,7 @@ class JniSMTCAdapter: SMTCAdapter {
     private var onPreviousCallback: Callback? = null
     private var onSetPositionCallback: Callback? = null
     private var onSetRateCallback: Callback? = null
+    private var onSetVolumeCallback: Callback? = null
     private var onSetLoopCallback: Callback? = null
     private var onSetShuffleCallback: Callback? = null
 
@@ -93,6 +94,14 @@ class JniSMTCAdapter: SMTCAdapter {
             libsmtc.setOnRateChanged(callback)
             onSetRateCallback = callback
         }
+    override var onSetVolume: ((volume: Float) -> Unit)? = null
+        set(value) {
+            field =value
+
+            val  callback = value?.let { CallbackVolume(it) }
+            libsmtc.setOnVolumeChanged(callback)
+            onSetVolumeCallback = callback
+        }
     override var onSetLoop: ((loop_mode: Int) -> Unit)? = null
         set(value) {
             field = value
@@ -134,6 +143,9 @@ class JniSMTCAdapter: SMTCAdapter {
 
     override fun getRate(): Double = libsmtc.getRate()
     override fun setRate(rate: Double) = libsmtc.setRate(rate)
+    override fun getVolume(): Double = libsmtc.getVolume()
+
+    override fun setVolume(volume: Double) = libsmtc.setVolume(volume)
 
     override fun getShuffle(): Boolean = libsmtc.getShuffle()
     override fun setShuffle(shuffle: Boolean) = libsmtc.setShuffle(shuffle)
@@ -190,6 +202,7 @@ private interface SMTCAdapterLibrary: SMTCAdapter, Library {
     fun setOnRateChanged(callback: CallbackRate?)
     fun setOnLoopChanged(callback: CallbackLoop?)
     fun setOnShuffleChanged(callback: CallbackShuffle?)
+    fun setOnVolumeChanged(callback: CallbackVolume?)
 }
 
 @Suppress("UNUSED_PARAMETER")
@@ -204,6 +217,11 @@ private class CallbackSeek(val callback: (Long) -> Unit): Callback {
 
 @Suppress("UNUSED_PARAMETER")
 private class CallbackRate(val callback: (Float) -> Unit): Callback {
+    fun callback(value: Float, data: Int?) { callback.invoke(value) }
+}
+
+@Suppress("UNUSED_PARAMETER")
+private class CallbackVolume(val callback: (Float) -> Unit): Callback {
     fun callback(value: Float, data: Int?) { callback.invoke(value) }
 }
 

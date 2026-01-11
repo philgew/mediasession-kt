@@ -62,6 +62,9 @@ fun main() {
     session.onSetRate = { rate ->
         println("onSetRate $rate called")
     }
+    session.onSetVolume = { volume ->
+        println("onSetVolume $volume called")
+    }
     session.onSetLoop = { loop_mode ->
         println("onSetLoop $loop_mode called")
     }

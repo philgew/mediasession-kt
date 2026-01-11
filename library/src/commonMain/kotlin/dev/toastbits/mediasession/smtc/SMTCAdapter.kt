@@ -14,6 +14,7 @@ interface SMTCAdapter {
     var onSetRate: ((rate: Float) -> Unit)?
     var onSetLoop: ((loop_mode: Int) -> Unit)?
     var onSetShuffle: ((shuffle_mode: Boolean) -> Unit)?
+    var onSetVolume: ((volume: Float) -> Unit)?
 
     fun revokeCallbacks()
 
@@ -37,6 +38,9 @@ interface SMTCAdapter {
 
     fun getRate(): Double
     fun setRate(rate: Double)
+
+    fun getVolume(): Double
+    fun setVolume(volume: Double)
 
     fun getShuffle(): Boolean
     fun setShuffle(shuffle: Boolean)

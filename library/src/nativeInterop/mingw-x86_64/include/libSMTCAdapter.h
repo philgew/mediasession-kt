@@ -38,6 +38,9 @@ void setStopEnabled(int);
 double getRate();
 void setRate(double);
 
+double getVolume();
+void setVolume(double);
+
 int getShuffle();
 void setShuffle(int);
 
