@@ -37,6 +37,7 @@ class NativeSMTCAdapter: SMTCAdapter {
     override var onSetRate: ((rate: Float) -> Unit)? = null
     override var onSetLoop: ((loop_mode: Int) -> Unit)? = null
     override var onSetShuffle: ((shuffle_mode: Boolean) -> Unit)? = null
+    override var onSetVolume: ((volume: Float) -> Unit)? = null
 
     override var onNext: (() -> Unit)? = null
     override var onPrevious: (() -> Unit)? = null
@@ -63,6 +64,9 @@ class NativeSMTCAdapter: SMTCAdapter {
 
     override fun getRate(): Double = libsmtc.getRate()
     override fun setRate(rate: Double) = libsmtc.setRate(rate)
+
+    override fun getVolume(): Double = libsmtc.getVolume()
+    override fun setVolume(volume: Double) = libsmtc.setVolume(volume)
 
     override fun getShuffle(): Boolean = libsmtc.getShuffle().toBoolean()
     override fun setShuffle(shuffle: Boolean) = libsmtc.setShuffle(shuffle.toInt())
