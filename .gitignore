@@ -10,3 +10,4 @@ local.properties
 xcuserdata
 .vscode
 /library/src/jvmMain/resources
+/.kotlin/
